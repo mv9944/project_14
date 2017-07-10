@@ -4,20 +4,17 @@
 
 
 
+/*-----------------------------------------------------------------------------------------------------------------------*/
+
+
 
 typedef struct
 {
     unsigned int type_coding: 2;
     unsigned int dest_addressing: 2;
     unsigned int origin_addressing: 2;
-    unsigned int opcode: 4;
-    
-    
+    unsigned int opcode: 4;    
 }InstructOrder;
-
-
-
-
 
 
 typedef struct
@@ -30,6 +27,17 @@ typedef struct
 
 
 
+void allocate_check(void * p)
+{
+    if(!p)
+    {
+        fprintf(stderr,"Error to allocate new memory\n");
+        exit(0);
+    }
+    
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------*/
 
 
 
@@ -43,15 +51,7 @@ int * newData(int value)
 
 
 
-void allocate_check(void * p)
-{
-    if(!p)
-    {
-        fprintf(stderr,"Error to allocate new memory\n");
-        exit(0);
-    }
-    
-}
+
 
 
 int CommandLineToLinkedList()
