@@ -43,12 +43,6 @@ int * newData(int value)
 
 
 
-
-
-
-
-
-
 void allocate_check(void * p)
 {
     if(!p)
@@ -99,7 +93,7 @@ int CommandLineToLinkedList()
 
 }
 
-
+/*The main function when iterating on the string array */
 int CheckingCommand(char ** commands)
 {
     char * label_name;
