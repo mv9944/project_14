@@ -62,8 +62,8 @@ int CommandLineToLinkedList()
     
     i=0;
     c='\0';
-    chars_len=0;
-    commands=(char **)calloc(1, sizeof(char *));
+    chars_len=1;
+    commands=(char **)calloc(chars_len, sizeof(char *));
    
     
     while((c=getchar()!=EOF)&&(c!='\n'))
