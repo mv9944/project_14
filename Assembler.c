@@ -59,7 +59,7 @@ void insertNewError(char * error)
 /*get the whole command and transfer it to linked list, if returned ans>0 then there is an error in the input otherwise the input is valid*/
 void CommandLineToLinkedList()
 {
-    char ** commands;           /*array of strings*/
+    char ** commands;           /*dynamic matrix of strings*/
     char c;              /*char variable to iterate on content std*/
     int chars_len,i;      /*chars_len: the char length of the current word, current_line: indicate in the current number line*/
     
