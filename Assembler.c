@@ -14,7 +14,7 @@ extern unsigned SC;                 /*Symbol counter*/
 extern char ** ErrorsAssembler;     /*Error in the compiling*/
 extern unsigned EC;                 /*Error counter*/
 extern unsigned LC;                 /*Line counter*/
-
+unsigned word_counter;
 
 
 
@@ -68,10 +68,10 @@ void CommandLineToLinkedList()
 {
     char ** commands;           /*dynamic matrix of strings*/
     char c;              /*char variable to iterate on content std*/
-    int chars_len,i;      /*chars_len: the char length of the current word, current_line: indicate in the current number line*/
+    int chars_len,word_counter;      /*chars_len: the char length of the current word, word_counter: indicate in the current number of word*/
     
     LC++;
-    i=0;
+    word_counter=0;
     c='\0';
     chars_len=1;
     commands=(char **)malloc(sizeof(char *));
@@ -83,21 +83,21 @@ void CommandLineToLinkedList()
     {
         if((c!=' ')&&(c!=','))
         {
-            commands[i]=(char *)realloc((char *)(commands[i]), (chars_len+1)*sizeof(char));
-            allocate_check((char *)commands[i]);
-            commands[i][chars_len-1]=c;
-            commands[i][chars_len]='\0';
+            commands[word_counter]=(char *)realloc((char *)(commands[word_counter]), (chars_len+1)*sizeof(char));
+            allocate_check((char *)commands[word_counter]);
+            commands[word_counter][chars_len-1]=c;
+            commands[word_counter][chars_len]='\0';
             chars_len++;
         }
        else
        {
            if(chars_len>1)
            {
-               i++;
-               commands=(char **)realloc((char **)commands, (i+1)*sizeof(char *));
+               word_counter++;
+               commands=(char **)realloc((char **)commands, (word_counter+1)*sizeof(char *));
                allocate_check((char **)commands);
-               commands[i]=(char *)calloc(1,sizeof(char));
-               allocate_check((char *)commands[i]);
+               commands[word_counter]=(char *)calloc(1,sizeof(char));
+               allocate_check((char *)commands[word_counter]);
                chars_len=1;
            }
           
