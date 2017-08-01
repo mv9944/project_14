@@ -142,7 +142,7 @@ void CheckingCommand(char ** commands)
         {
             if (flag_symbol_type>=19)
             {
-                insertSymbolToTable(commands[1],19);
+                insertSymbolToTable(commands[1],flag_symbol_type);
             }
             else
             {
