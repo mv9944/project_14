@@ -18,7 +18,7 @@ extern unsigned LC;                 /*Line counter*/
 
 
 
-
+/*fucntion that checks if the new memory allocate was successed, if not the function will print to stderr a new error message and then will exit the program*/
 void allocate_check(void * p)
 {
     if(!p)
@@ -32,7 +32,7 @@ void allocate_check(void * p)
 
 
 
-
+/*fucntion that insert new assembler error into ErrorsAssembler table */
 void insertNewError(char * error)
 {
     if (!EC)
@@ -48,8 +48,15 @@ void insertNewError(char * error)
 
 }
 
-
-
+/*function that free the linked list of strings*/
+void freeLinkedList(char ** list)
+{
+   while(list)
+   {
+     free((char *)*list); 
+     list++;
+   }
+}
 
 
 
@@ -66,10 +73,11 @@ void CommandLineToLinkedList()
     LC++;
     i=0;
     c='\0';
-    chars_len=0;
-    commands=(char **)calloc(1, sizeof(char *));
+    chars_len=1;
+    commands=(char **)malloc(sizeof(char *));
     allocate_check((char **)commands);            /*-------------Need to check if (char **)commands is valid------------*/
-
+    commands[0]=(char *)calloc(1,sizeof(char));
+    allocate_check((char *)commands[0]);
     
     while((c=getchar()!=EOF)&&(c!='\n'))
     {
@@ -83,12 +91,14 @@ void CommandLineToLinkedList()
         }
        else
        {
-           if(!chars_len)
+           if(chars_len>1)
            {
                i++;
                commands=(char **)realloc((char **)commands, (i+1)*sizeof(char *));
-               commands[i]=NULL;
-               chars_len=0;
+               allocate_check((char **)commands);
+               commands[i]=(char *)calloc(1,sizeof(char));
+               allocate_check((char *)commands[i]);
+               chars_len=1;
            }
           
        }
@@ -96,13 +106,13 @@ void CommandLineToLinkedList()
     if(c=='\n')
     {
         CheckingCommand(&commands);
-        free(commands);
+        freeLinkedList(&commands);
         CommandLineToLinkedList();
     }
     else   /*if c is EOF*/
     {
         CheckingCommand(&commands);
-        free(commands);
+        freeLinkedList(&commands);
     }
 }
 
