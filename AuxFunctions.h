@@ -15,13 +15,15 @@ int isLabel(char * order);
  if EntryExter=0 then the function will checks without checking entry and extern otherwise the function will checks all the options above including .entry and .extern*/
 int isInstruction(char * order, int EntryExtern);
 
-/*Function that insert the symbol into the symbols tabel by the type: 16 or 17 or 18 is data; 20 is extern otherwise is instruction type. and update SC counter too*/
+/*Function that insert the symbol into the symbols tabel by the type: 16 or 17 or 18 is data;19 is .entry and 20 is .extern otherwise is instruction type. and update SC counter too*/
 void insertSymbolToTable(char *label,int type);
 
 /* Function that insert the given data into the instructions_table, the function will update the IC counter by matching to the length of the given data */
-void insertToIT(char **data,int data_type);
+void insertToIT(char **data,int Instruc_type);
 
 
+/*Update the given instruction command for the second checking*/
+void updateInstruction(char **data,int Instruc_type);
 
 
 #endif /* AuxFunctions_h */
