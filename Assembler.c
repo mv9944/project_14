@@ -7,9 +7,9 @@
 
 extern Symbol ** symbol_table;               /*The symbols table*/
 extern void ** instructions_table;   /* for data and instruction order*/
-//void ** data_table;           
+extern void ** data_table;           
 extern unsigned IC;                 /*Instruction table counter*/
-//unsigned DC=0;                 /*Data table counter*/
+extern unsigned DC=0;                 /*Data table counter*/
 extern unsigned SC;                 /*Symbol counter*/
 extern char ** ErrorsAssembler;     /*Error in the compiling*/
 extern unsigned EC;                 /*Error counter*/
@@ -134,20 +134,30 @@ void FirstCheckingCommand(char ** command)
     if (isLabel(command[0]))
     {
         /*In the case that the first string on the current command line is a label(symbol) */
-        if((isValidLabel(command[0]))&&((flag_symbol_type=isInstruction(command[1],0)>=0)))
+        if((isValidLabel(command[0]))&&((flag_symbol_type=isInstruction(command[1])>=0)))
         {
-            /*In the case that the current label is a valid label*/
-            insertSymbolToTable(command[0],flag_symbol_type);
-            insertToIT(&command[2],flag_symbol_type);   /*the command[2] is first operand*/
+            /*if the instrct type is an data*/
+            if((flag_symbol_type>15)&&(flag_symbol_type<19))
+            {
+                insertSymbolToTable(@command[0],flag_symbol_type);
+                insertToDT(&command[2],flag_symbol_type);
+            }
+            /*if the instrct type is an instruction*/
+           else if(flag_symbol_type<=15)
+            {
+                insertSymbolToTable(@command[0],flag_symbol_type);
+                insertToIT(&command[2],flag_symbol_type);   /*the command[2] is first operand*/
+            }           
         }
     }
     else /*if the commands[0] isn't label*/
     {
-        if ((flag_symbol_type=isInstruction(command[0],1)>=0))
+        if ((flag_symbol_type=isInstruction(command[0]))>=0)
         {
             if (flag_symbol_type>=19)
             {
-                insertSymbolToTable(command[1],flag_symbol_type);
+                if(flag_symbol_type==20) /*if is .extern insruct type then we will enter the command into the symbol table*/
+                    insertSymbolToTable(&command[1],flag_symbol_type);
             }
             else
             {
@@ -161,28 +171,25 @@ void FirstCheckingCommand(char ** command)
 void SecondCheckingCommand(char ** command)
 {
     int flag_symbol_type;
-
+    int flag;  /*if there is a label(symbol) in the current given command line*/
+    
+    flag=0;
     if (isLabel(command[0]))
     {
         /*In the case that the first string on the current command line is a label(symbol) */
-        if((flag_symbol_type=isInstruction(command[1],0))==19)
-        {
-            /*In the case that the second string is .entry*/
-            insertSymbolToTable(command[0],flag_symbol_type);   /*need to assign the current label(symbol) as an .entry in the symbol table*/
-        }
-        else
-        {
-            if(flag_symbol_type<=15)
-                insertToIT(&command[2],flag_symbol_type);   /*the command[2] is first operand*/
-        }
+        flag=1;       
     }
     
-    
-    
+    if((flag_symbol_type=isInstruction(command[flag]))==19)
+    {
+        /*In the case that the second string is .entry*/
+        insertSymbolToTable(&command[0],flag_symbol_type);   /*need to assign the current label(symbol) as an .entry in the symbol table*/
+    }
+    else if(flag_symbol_type<=15)
+    {
+        updateInstruction(&command[flag+1],flag_symbol_type);   /*the command[2] is first operand*/
+    }     
 }
-
-
-
 
 
 
@@ -193,6 +200,7 @@ int main(int argc,char * argv) {
     SC=0;
     EC=0;
     LC=0;
+    DC=0;
     
     fp = fopen ("argv[0]", "r");
     
@@ -202,6 +210,7 @@ int main(int argc,char * argv) {
         exit(0);
     }
     
+    /*First checking of the assembly*/
     CommandLineToLinkedList(1);
     
     /*sets the file position to the beginning of the assembly file*/
@@ -209,15 +218,18 @@ int main(int argc,char * argv) {
 
     if (EC>0)
     {
-        /*Print all the compile error from ErrorsAssembler*/
+        /*Print all the compile error from ErrorsAssembler and exit*/
     }
     
-    /*Second pass of the program*/
+    /*Second checking of the assembly*/
     IC=0;
     LC=0;
     CommandLineToLinkedList(2);
 
-    
+    if (EC>0)
+    {
+        /*Print all the compile error from ErrorsAssembler and exit*/
+    }
     
     return 0;
     
