@@ -108,7 +108,7 @@ void CommandLineToLinkedList(int NumIteration)
         if(NumIteration)
             FirstCheckingCommand(&command);
         else
-            CompleteCheckingCommand(&command);
+            SecondCheckingCommand(&command);
         freeLinkedList(&command);
         CommandLineToLinkedList(NumIteration);
     }
@@ -117,7 +117,7 @@ void CommandLineToLinkedList(int NumIteration)
         if(NumIteration)
             FirstCheckingCommand(&command);
         else
-            CompleteCheckingCommand(&command);
+            SecondCheckingCommand(&command);
         freeLinkedList(&command);
     }
 }
