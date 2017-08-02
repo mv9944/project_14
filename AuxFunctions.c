@@ -27,7 +27,7 @@ int isInstruction(char * order, int EntryExtern);
     
 }
 
-/*Function that insert the symbol into the symbols tabel by the type: 16 or 17 is data otherwise is instruction type. and update SC counter too*/
+/*Function that insert the symbol into the symbols tabel by the type: 16 or 17 or 18 is data;19 is .entry and 20 is .extern otherwise is instruction type. and update SC counter too*/
 void insertSymbolToTable(char *label,int type);
 {
     
@@ -43,3 +43,28 @@ void insertToIT(char **data,int data_type)
     
     
 }
+
+/*Update the given instruction command for the second checking*/
+void updateInstruction(char **data,int Instruc_type)
+{
+    
+    
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
