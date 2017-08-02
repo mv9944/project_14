@@ -36,7 +36,7 @@ void insertSymbolToTable(char *label,int type);
 
 
 /* Function that insert the given data into the instructions_table, the function will update too the IC counter by matching to the length of the given data */
-void insertToIT(char **data,int data_type)
+void insertToIT(char **data,int Instruc_type)
 {
     
     
