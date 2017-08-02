@@ -9,7 +9,7 @@ extern Symbol ** symbol_table;               /*The symbols table*/
 extern void ** instructions_table;   /* for data and instruction order*/
 extern void ** data_table;           
 extern unsigned IC;                 /*Instruction table counter*/
-extern unsigned DC=0;                 /*Data table counter*/
+extern unsigned DC;                 /*Data table counter*/
 extern unsigned SC;                 /*Symbol counter*/
 extern char ** ErrorsAssembler;     /*Error in the compiling*/
 extern unsigned EC;                 /*Error counter*/
