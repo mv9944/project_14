@@ -71,6 +71,7 @@ void CommandLineToLinkedList(int NumIteration)
     int chars_len,word_counter;      /*chars_len: the char length of the current word, word_counter: indicate in the current number of word*/
     
     LC++;
+    reader='\0';
     word_counter=0;
     chars_len=1;
     command=(char **)malloc(sizeof(char *));
@@ -80,7 +81,7 @@ void CommandLineToLinkedList(int NumIteration)
     
     while(((reader=fgetc(fp))!=EOF)&&(reader!='\n'))
     {
-        if((c!=' ')&&(c!=','))
+        if((reader!=' ')&&(reader!=','))
         {
             command[word_counter]=(char *)realloc((char *)(command[word_counter]), (chars_len+1)*sizeof(char));
             allocate_check((char *)command[word_counter]);
@@ -102,7 +103,13 @@ void CommandLineToLinkedList(int NumIteration)
           
        }
     }
-    if(c=='\n')
+    /*Assign in the last+1 place a null (to indicate the end of the current command) */
+    word_counter++;
+    command=(char **)realloc((char **)command, (word_counter+1)*sizeof(char *));
+    allocate_check((char **)command);
+    command[word_counter]=NULL;
+    
+    if(reader=='\n')
     {
         if(NumIteration)
             FirstCheckingCommand(&command);
