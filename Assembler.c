@@ -15,7 +15,7 @@ extern char ** ErrorsAssembler;     /*Error in the compiling*/
 extern unsigned EC;                 /*Error counter*/
 extern unsigned LC;                 /*Line counter*/
 unsigned word_counter;
-
+FILE * fd;
 
 
 /*fucntion that checks if the new memory allocate was successed, if not the function will print to stderr a new error message and then will exit the program*/
@@ -79,7 +79,7 @@ void CommandLineToLinkedList()
     commands[0]=(char *)calloc(1,sizeof(char));
     allocate_check((char *)commands[0]);
     
-    while((c=getchar()!=EOF)&&(c!='\n'))
+    while(((c=fgetc(fp))!=EOF)&&(c!='\n'))
     {
         if((c!=' ')&&(c!=','))
         {
@@ -157,18 +157,34 @@ void CheckingCommand(char ** commands)
 
 
 
-int main() {
+int main(int argc,char * argv) {
+    /*Function the check the validity of the inputed arguments*/
+    /*********************************************************/
     IC=0;
     SC=0;
     EC=0;
     LC=0;
     
-    CommandLineToLinkedList();
-    if (!EC)
+    fp = fopen ("argv[0]", "r");
+    
+    if(!fp)
     {
-        /*Second pass of the program*/
-        
+        fprintf(stderr,"File address isn't valid\n");
+        exit(0);
     }
+    
+    CommandLineToLinkedList();
+    
+    /*sets the file position to the beginning of the assembly file*/
+    rewind(fp);
+
+    if (EC>0)
+    {
+        /*Print all the compile error from ErrorsAssembler*/
+    }
+    
+    /*Second pass of the program*
+    
     return 0;
     
     
