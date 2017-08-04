@@ -201,7 +201,7 @@ void SecondCheckingCommand(char ** command)
 
 
 int main(int argc,char * argv) {
-    /*Function the check the validity of the inputed arguments*/
+    /*Function to check the validity of the inputed arguments*/
     /*********************************************************/
     IC=0;
     SC=0;
