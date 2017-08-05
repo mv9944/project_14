@@ -68,12 +68,13 @@ void CommandLineToLinkedList(int NumIteration)
 {
     char ** command;           /*dynamic matrix of strings*/
     char reader;              /*char variable to iterate on content std*/
-    int chars_len,word_counter;      /*chars_len: the char length of the current word, word_counter: indicate in the current number of word*/
+    int chars_len,word_counter,isComa;      /*chars_len: the char length of the current word; word_counter: indicate in the current number of word; isComa: indicate if coma was encourted more than one time*/
     
     LC++;
     reader='\0';
     word_counter=0;
     chars_len=1;
+    isComa=0;
     command=(char **)malloc(sizeof(char *));
     allocate_check((char **)command);            /*-------------Need to check if (char **)commands is valid------------*/
     commands[0]=(char *)calloc(1,sizeof(char));
@@ -81,13 +82,14 @@ void CommandLineToLinkedList(int NumIteration)
     
     while(((reader=fgetc(fp))!=EOF)&&(reader!='\n'))
     {
-        if((reader!=' ')&&(reader!=','))
+        if((reader!=' ')&&((reader!=',')||()))
         {
             command[word_counter]=(char *)realloc((char *)(command[word_counter]), (chars_len+1)*sizeof(char));
             allocate_check((char *)command[word_counter]);
             command[word_counter][chars_len-1]=reader;
             command[word_counter][chars_len]='\0';
             chars_len++;
+            isComa=0;
         }
        else
        {
@@ -99,7 +101,9 @@ void CommandLineToLinkedList(int NumIteration)
                command[word_counter]=(char *)calloc(1,sizeof(char));
                allocate_check((char *)command[word_counter]);
                chars_len=1;
+               isComa=(reader==',');
            }
+         
           
        }
     }
