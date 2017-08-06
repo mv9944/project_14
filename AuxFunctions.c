@@ -61,7 +61,13 @@ void updateInstruction(char **data,int Instruc_type)
 }
 
 
+int isGoodLetter (char toTest){
 
+    int tester = (int)toTest;
+    if( (tester>= 65 && tester<=90) || (tester>= 97 && tester<=122) || (tester>= 48 && tester<=57) )
+    {return 1;}
+    return 0;
+}
 
 
 
