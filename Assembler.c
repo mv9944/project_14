@@ -82,7 +82,7 @@ void CommandLineToLinkedList(int NumIteration)
     
     while(((reader=fgetc(fp))!=EOF)&&(reader!='\n'))
     {
-        if((reader!=' ')&&((reader!=',')||()))
+        if((reader!=' ')&&((reader!=',')||(isComa)))
         {
             command[word_counter]=(char *)realloc((char *)(command[word_counter]), (chars_len+1)*sizeof(char));
             allocate_check((char *)command[word_counter]);
