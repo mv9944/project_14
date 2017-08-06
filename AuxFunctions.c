@@ -29,7 +29,65 @@ int isInstruction(char * order)
 /*Function that insert the symbol into the symbols tabel by the type: 16 or 17 or 18 is data;19 is .entry and 20 is .extern otherwise is instruction type. and update SC counter too*/
 void insertSymbolToTable(char **data,int type)
 {
-    
+        if (strcmp(order,"mov")==0){
+        return 0;
+    }
+    if (strcmp(order,"cmp")==0){
+        return 1;
+    }
+    if (strcmp(order,"add")==0){
+        return 2;
+    }
+    if (strcmp(order,"sub")==0){
+        return 3;
+    }
+    if (strcmp(order,"not")==0){
+        return 4;
+    }
+    if (strcmp(order,"clr")==0){
+        return 5;
+    }
+    if (strcmp(order,"lea")==0){
+        return 6;
+    }
+    if (strcmp(order,"inc")==0){
+        return 7;
+    }
+    if (strcmp(order,"dec")==0){
+        return 8;
+    }
+    if (strcmp(order,"jmp")==0){
+        return 9;
+    }
+    if (strcmp(order,"bne")==0){
+        return 10;
+    }
+    if (strcmp(order,"red")==0){
+        return 11;
+    }
+    if (strcmp(order,"prn")==0){
+        return 12;
+    }
+    if (strcmp(order,"jsr")==0){
+        return 13;
+    }
+    if (strcmp(order,"rts")==0){
+        return 14;
+    }
+    if (strcmp(order,"stop")==0){
+        return 15;
+    }
+    if (strcmp(order,".data")==0){
+        return 16;
+    }
+    if (strcmp(order,".string")==0){
+        return 17;
+    }
+    if (strcmp(order,".mat")==0){
+        return 18;
+    }
+
+    return -1;
     
 }
 
